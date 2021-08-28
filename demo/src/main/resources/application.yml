@@ -1,0 +1,10 @@
+
+auth-server:
+  oauth2:
+    redirect-url: "https://oidcdebugger.com/debug"
+    client-id: "test_client_id"
+    client-secret: "{noop}test_client_secret"
+
+roles:
+  admin: ROLE_SYSTEM_ADMINISTRATOR
+
