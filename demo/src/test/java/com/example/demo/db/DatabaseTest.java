@@ -11,7 +11,7 @@ import com.example.demo.resourceserver.services.OutboxService;
 import com.example.demo.resourceserver.services.ZooService;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import lombok.SneakyThrows;
-import org.hibernate.Hibernate;
+import org.hibernate.*;
 import org.junit.Assert;
 import org.junit.Test;
 import org.junit.jupiter.api.BeforeEach;
@@ -22,6 +22,7 @@ import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringRunner;
 
 import javax.persistence.EntityManager;
+import java.util.List;
 import java.util.Random;
 
 
@@ -81,18 +82,18 @@ public class DatabaseTest {
 
         //#region when
         entityManager.clear();
-        long start_base = System.nanoTime();
-        zooService.persist(zoo1);
-        long end_base = System.nanoTime();
-        var slowTimeElapsed = end_base - start_base;
-        System.out.println("Slow elapsing time:" + slowTimeElapsed + " nano");
-
-        entityManager.clear();
         long start_fast = System.nanoTime();
         zooService.persistNative(zoo2);
         long end_fast = System.nanoTime();
         var fastTimeElapsed = end_fast - start_fast;
         System.out.println("Fast elapsing time:" + fastTimeElapsed + " nano");
+
+        entityManager.clear();
+        long start_base = System.nanoTime();
+        zooService.persist(zoo1);
+        long end_base = System.nanoTime();
+        var slowTimeElapsed = end_base - start_base;
+        System.out.println("Slow elapsing time:" + slowTimeElapsed + " nano");
 
         entityManager.clear();
         //#endregion
@@ -112,6 +113,56 @@ public class DatabaseTest {
         Hibernate.initialize(savedZoo2);
         Assert.assertEquals(savedZoo2.getAnimals().size(), zoo2.getAnimals().size());
         //#endregion
+    }
+
+    @Test
+    @SneakyThrows
+    public void indexingSearchSpeedupTest() {
+        //#region given
+        var testName = "TestName";
+        var testOwner = "TestOwner";
+        var myAnimalsNumber = 30;
+        var elseAnimalsNumber = 50_000;
+
+        for (int i = 0; i < myAnimalsNumber; i++){
+            Feline cat = new Feline();
+            cat.setName(testName);
+            cat.setOwner(testOwner);
+            cat.setFurType("TestFurType_"+i);
+            animalService.persist(cat);
+        }
+        for (int i = 0; i < elseAnimalsNumber; i++){
+            Feline cat = new Feline();
+            cat.setName("ElseCatName");
+            cat.setOwner("Else");
+            cat.setFurType("ElseTestFurType_"+i);
+            animalService.persist(cat);
+        }
+        countByOwner(testOwner);
+        countByName(testName);
+        //#endregion
+
+        //#region when
+        entityManager.clear();
+        long start_fast = System.nanoTime();
+        int fastSize = countByOwner(testOwner);
+        long end_fast = System.nanoTime();
+        var fastTimeElapsed = end_fast - start_fast;
+        System.out.println("Fast elapsing time:" + fastTimeElapsed/1_000_000.0 + " ms");
+        System.out.println("Fast elapsing size:" + fastSize);
+
+        entityManager.clear();
+        long start_base = System.nanoTime();
+        int slowSize = countByName(testName);
+        long end_base = System.nanoTime();
+        var slowTimeElapsed = end_base - start_base;
+        System.out.println("Slow elapsing time:" + slowTimeElapsed/1_000_000.0 + " ms");
+        System.out.println("Slow elapsing size:" + slowSize);
+
+        entityManager.clear();
+        //#endregion
+
+        Assert.assertTrue(fastTimeElapsed < slowTimeElapsed);
     }
 
     private Zoo createRandomZoo(int seed, int size) {
@@ -138,7 +189,7 @@ public class DatabaseTest {
 
     private Animal createRandomAnimal(int id, Random random) {
         var rnd = random.nextDouble();
-        Animal animal = null;
+        Animal animal;
         if (rnd > 0.5){
             var cat = new Feline();
             cat.setName("TestCatName_"+id);
@@ -152,5 +203,35 @@ public class DatabaseTest {
         }
         animal.setOwner(createRandomOwner(random));
         return animal;
+    }
+
+    private int countByOwner(String owner) {
+        SessionFactory sessionFactory = entityManager
+                .getEntityManagerFactory().unwrap(SessionFactory.class);
+
+        StatelessSession statelessSession = sessionFactory.openStatelessSession();
+
+        List<Animal> animalList = statelessSession
+                .createQuery("select a from Animal a where a.owner=:owner", Animal.class)
+                .setParameter("owner", owner)
+                .list();
+
+        statelessSession.close();
+        return animalList.size();
+    }
+
+    private int countByName(String name) {
+        SessionFactory sessionFactory = entityManager
+                .getEntityManagerFactory().unwrap(SessionFactory.class);
+
+        StatelessSession statelessSession = sessionFactory.openStatelessSession();
+
+        List<Animal> animalList = statelessSession
+                .createQuery("select a from Animal a where a.name=:name", Animal.class)
+                .setParameter("name", name)
+                .list();
+
+        statelessSession.close();
+        return animalList.size();
     }
 }

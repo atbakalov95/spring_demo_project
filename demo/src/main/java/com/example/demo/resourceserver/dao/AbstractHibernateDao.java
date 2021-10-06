@@ -19,8 +19,9 @@ public abstract class AbstractHibernateDao<T> {
         return (T) getCurrentSession().get( clazz, id );
     }
     public List<T> findAll() {
-        return (List<T>)getCurrentSession()
-                .createQuery("from " + clazz.getName()).list();
+        return getCurrentSession()
+                .createQuery("from " + clazz.getName(), clazz)
+                .list();
     }
 
     public void persist(T entity) {

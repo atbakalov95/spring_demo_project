@@ -1,0 +1,10 @@
+databaseChangeLog:
+  - logicalFilePath: db/changelog/database-updates/migration-2-index-changelog.yaml
+  - changeSet:
+      id:  3
+      author:  liquibase-user
+      changes:
+        -  sql:
+             dbms:  'postgresql'
+             sql:  create index on animal using btree(owner)
+      comment:  Index on database set

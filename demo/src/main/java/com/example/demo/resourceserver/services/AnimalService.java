@@ -9,4 +9,6 @@ public interface AnimalService {
     void persist(Animal animal) throws ServiceException;
     Animal findOne(int id);
     List<Animal> findAll();
+    List<Animal> findByOwner(String owner);
+    List<Animal> findByName(String name);
 }

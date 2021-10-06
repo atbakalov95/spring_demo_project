@@ -40,4 +40,14 @@ public class AnimalServiceImpl implements AnimalService {
     }
 
     public List<Animal> findAll() {return this.animalDao.findAll();}
+
+    @Override
+    public List<Animal> findByOwner(String owner) {
+        return this.animalDao.findByOwner(owner);
+    }
+
+    @Override
+    public List<Animal> findByName(String name) {
+        return this.animalDao.findByName(name);
+    }
 }
