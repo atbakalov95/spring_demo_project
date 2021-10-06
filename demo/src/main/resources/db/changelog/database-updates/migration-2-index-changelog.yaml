@@ -1,7 +1,7 @@
 databaseChangeLog:
   - logicalFilePath: db/changelog/database-updates/migration-2-index-changelog.yaml
   - changeSet:
-      id:  3
+      id:  2
       author:  liquibase-user
       changes:
         -  sql:

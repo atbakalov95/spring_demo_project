@@ -86,14 +86,14 @@ public class DatabaseTest {
         zooService.persistNative(zoo2);
         long end_fast = System.nanoTime();
         var fastTimeElapsed = end_fast - start_fast;
-        System.out.println("Fast elapsing time:" + fastTimeElapsed + " nano");
+        System.out.println("Fast elapsing time:" + fastTimeElapsed/1_000_000.0 + " ms");
 
         entityManager.clear();
         long start_base = System.nanoTime();
         zooService.persist(zoo1);
         long end_base = System.nanoTime();
         var slowTimeElapsed = end_base - start_base;
-        System.out.println("Slow elapsing time:" + slowTimeElapsed + " nano");
+        System.out.println("Slow elapsing time:" + slowTimeElapsed/1_000_000.0 + " ms");
 
         entityManager.clear();
         //#endregion

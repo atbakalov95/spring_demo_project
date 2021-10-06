@@ -1,0 +1,11 @@
+databaseChangeLog:
+  - logicalFilePath: db/changelog/database-updates/migration-3-partition-changelog.yaml
+  - changeSet:
+      id:  3
+      author:  liquibase-user
+      changes:
+        - sqlFile:
+            dbms:  'postgresql'
+            path:  ../pure-sql-updates/migration-1-new-partition-changelog.sql
+            relativeToChangelogFile: true
+      comment:  Partition on database set

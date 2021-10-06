@@ -1,7 +1,7 @@
 databaseChangeLog:
   - logicalFilePath: db/changelog/database-updates/migration-1-initial-changelog.yaml
   - changeSet:
-      id: 1
+      id: 11
       author: liquibase_user
       changes:
         - createTable:
@@ -52,23 +52,24 @@ databaseChangeLog:
                   name: status
                   type: varchar(50)
   - changeSet:
-      id: 2
+      id: 12
       author: liquibase_user
       changes:
         - createTable:
             tableName: animal
             columns:
               - column:
-                  name: dtype
-                  type: varchar(31)
-                  constraints:
-                    nullable: false
-              - column:
                   name: id
                   type: BIGINT
                   autoIncrement: true
                   constraints:
                     primaryKey: true
+                    nullable: false
+              - column:
+                  name: dtype
+                  type: varchar(31)
+                  constraints:
+                    primaryKey: true # obligatory for new postgres partitioning
                     nullable: false
               - column:
                   name: name
@@ -88,3 +89,7 @@ databaseChangeLog:
                   constraints:
                     foreignKeyName: fk_animal_zoo
                     references: zoo(id)
+        - modifySql:
+            dbms: postgresql
+            append:
+              value: PARTITION BY LIST(dtype)

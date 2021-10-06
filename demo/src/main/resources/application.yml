@@ -32,3 +32,4 @@ spring:
           batch_size: 100
     hibernate:
       ddl-auto: none
+    show-sql: true
