@@ -19,6 +19,8 @@ public abstract class Animal {
 
     private String name;
 
+    private String owner;
+
     @ManyToOne
     @JsonIgnore
     private Zoo zoo;

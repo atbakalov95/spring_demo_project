@@ -26,5 +26,5 @@ spring:
         jdbc:
           batch_size: 100
     hibernate:
-      ddl-auto: create-drop
+      ddl-auto: none
     show_sql: true

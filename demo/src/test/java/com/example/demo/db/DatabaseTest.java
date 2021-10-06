@@ -50,6 +50,7 @@ public class DatabaseTest {
         //#region given
         var cat = new Feline();
         cat.setName("PussInBoots");
+        cat.setOwner("Me");
         cat.setFurType("Sharp");
         //#endregion
 
@@ -126,18 +127,30 @@ public class DatabaseTest {
         return zoo;
     }
 
+    private String createRandomOwner(Random random) {
+        double rnd = random.nextDouble();
+        if (rnd > 0.5){
+            return "me";
+        } else {
+            return "someone_else";
+        }
+    }
+
     private Animal createRandomAnimal(int id, Random random) {
         var rnd = random.nextDouble();
+        Animal animal = null;
         if (rnd > 0.5){
             var cat = new Feline();
             cat.setName("TestCatName_"+id);
             cat.setFurType("TestFurType_"+id);
-            return cat;
+            animal = cat;
         } else {
             var bird = new Bird();
             bird.setName("TestBirdName_"+id);
             bird.setFlyHeight(1+id);
-            return bird;
+            animal = bird;
         }
+        animal.setOwner(createRandomOwner(random));
+        return animal;
     }
 }
