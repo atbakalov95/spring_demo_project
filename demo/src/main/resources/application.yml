@@ -9,7 +9,8 @@ roles:
   admin: ROLE_SYSTEM_ADMINISTRATOR
 
 redis-mq:
-  cron: "*/1 * * * * *"
+#  cron: "*/1 * * * * *"
+  cron: "-"
   scan-limit: 10
   queue:
     name: outbox-queue
@@ -32,4 +33,4 @@ spring:
           batch_size: 100
     hibernate:
       ddl-auto: none
-    show-sql: true
+    show-sql: false

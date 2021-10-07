@@ -18,25 +18,6 @@ databaseChangeLog:
                   name: name
                   type: varchar(255)
         - createTable:
-            tableName: users
-            columns:
-              - column:
-                  name: id
-                  type: BIGINT
-                  autoIncrement: true
-                  constraints:
-                    nullable: false
-                    primaryKey: true
-              - column:
-                  name: encoded_password
-                  type: varchar(255)
-              - column:
-                  name: name
-                  type: varchar(255)
-              - column:
-                  name: password
-                  type: varchar(255)
-        - createTable:
             tableName: outbox
             columns:
               - column:
@@ -54,6 +35,7 @@ databaseChangeLog:
   - changeSet:
       id: 12
       author: liquibase_user
+      comment: "Creating animal in a separate migration script because of modifySql"
       changes:
         - createTable:
             tableName: animal

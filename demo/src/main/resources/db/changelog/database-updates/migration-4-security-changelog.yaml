@@ -1,0 +1,209 @@
+databaseChangeLog:
+  - logicalFilePath: db/changelog/database-updates/migration-4-security-changelog.yaml
+  - changeSet:
+      id: 41
+      author: liquibase_user
+      comment: "create tables to work with users and roles"
+      changes:
+        - createTable:
+            tableName: roles
+            columns:
+              - column:
+                  name: id
+                  type: BIGINT
+                  autoIncrement: true
+                  constraints:
+                    nullable: false
+                    primaryKey: true
+              - column:
+                  name: name
+                  type: varchar(255)
+        - createTable:
+            tableName: users
+            columns:
+              - column:
+                  name: id
+                  type: BIGINT
+                  autoIncrement: true
+                  constraints:
+                    nullable: false
+                    primaryKey: true
+              - column:
+                  name: encoded_password
+                  type: varchar(255)
+              - column:
+                  name: name
+                  type: varchar(255)
+                  constraints:
+                    nullable: false
+                    unique: true
+              - column:
+                  name: password
+                  type: varchar(255)
+              - column:
+                  name: role_id
+                  type: BIGINT
+                  constraints:
+                    foreignKeyName: fk_user_role
+                    references: roles(id)
+        - createTable:
+            tableName: authorities
+            columns:
+              - column:
+                  name: id
+                  type: BIGINT
+                  autoIncrement: true
+                  constraints:
+                    nullable: false
+                    primaryKey: true
+              - column:
+                  name: name
+                  type: varchar(255)
+        - createTable:
+            tableName: roles_to_authorities
+            columns:
+              - column:
+                  name: role_id
+                  type: BIGINT
+                  constraints:
+                    nullable: false
+                    primaryKey: true
+                    foreignKeyName: fk_mapping_role
+                    references: roles(id)
+              - column:
+                  name: authority_id
+                  type: BIGINT
+                  constraints:
+                    nullable: false
+                    primaryKey: true
+                    foreignKeyName: fk_mapping_authority
+                    references: authorities(id)
+  - changeSet:
+      id: 42
+      author: liquibase_user
+      comment: "insert basic users"
+      changes:
+        # region Create ADMIN and USER roles
+        - insert:
+            tableName: roles
+            columns:
+              - column:
+                  name: name
+                  value: "ADMIN"
+        - insert:
+            tableName: roles
+            columns:
+              - column:
+                  name: name
+                  value: "USER"
+        # endregion
+        # region Create CRUD authorities
+        - insert:
+            tableName: authorities
+            columns:
+              - column:
+                  name: name
+                  value: "CREATE_ANIMAL"
+        - insert:
+            tableName: authorities
+            columns:
+              - column:
+                  name: name
+                  value: "READ_ANIMAL"
+        - insert:
+            tableName: authorities
+            columns:
+              - column:
+                  name: name
+                  value: "UPDATE_ANIMAL"
+        - insert:
+            tableName: authorities
+            columns:
+              - column:
+                  name: name
+                  value: "DELETE_ANIMAL"
+        # endregion
+        # region Link roles and authorities
+        # region Link ADMIN authorities
+        - insert:
+            tableName: roles_to_authorities
+            columns:
+              - column:
+                  name: role_id
+                  value: "1"
+              - column:
+                  name: authority_id
+                  value: "1"
+        - insert:
+            tableName: roles_to_authorities
+            columns:
+              - column:
+                  name: role_id
+                  value: "1"
+              - column:
+                  name: authority_id
+                  value: "2"
+        - insert:
+            tableName: roles_to_authorities
+            columns:
+              - column:
+                  name: role_id
+                  value: "1"
+              - column:
+                  name: authority_id
+                  value: "3"
+        - insert:
+            tableName: roles_to_authorities
+            columns:
+              - column:
+                  name: role_id
+                  value: "1"
+              - column:
+                  name: authority_id
+                  value: "4"
+        # endregion
+        # region Link USER authorities
+        - insert:
+            tableName: roles_to_authorities
+            columns:
+              - column:
+                  name: role_id
+                  value: "2"
+              - column:
+                  name: authority_id
+                  value: "3"
+        # endregion
+        # endregion
+        # region Basic users
+        - insert:
+            tableName: users
+            columns:
+              - column:
+                  name: name
+                  value: "admin"
+              - column:
+                  name: password
+                  value: "{noop}admin"
+              - column:
+                  name: encoded_password
+                  value: "{bcrypt}$2a$10$fulTlO/8Raa3zQrCv/ieNesIuCIVwH7hfufCCO.LVwfNEGIVzdapC"
+              - column:
+                  name: role_id
+                  value: "1"
+        - insert:
+            tableName: users
+            columns:
+              - column:
+                  name: name
+                  value: "user"
+              - column:
+                  name: password
+                  value: "{noop}user"
+              - column:
+                  name: encoded_password
+                  value: "{bcrypt}$2a$10$6eCgVe06s8MKsk5XZ34eN.SZQpnLgURqbkN2.AIibtpLE0xAlboOm"
+              - column:
+                  name: role_id
+                  value: "2"
+        # endregion
+
