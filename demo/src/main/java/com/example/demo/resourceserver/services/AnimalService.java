@@ -6,6 +6,7 @@ import com.example.demo.resourceserver.model.Animal;
 import java.util.List;
 
 public interface AnimalService {
+    void delete(int id);
     void persist(Animal animal) throws ServiceException;
     Animal findOne(int id);
     List<Animal> findAll();

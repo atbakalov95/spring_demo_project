@@ -35,7 +35,7 @@ public abstract class AbstractHibernateDao<T> {
     public void delete(T entity) {
         getCurrentSession().delete(entity);
     }
-    public void deleteById(long id) {
+    public void deleteById(Serializable id) {
         final T entity = findOne( id);
         delete( entity );
     }

@@ -24,6 +24,12 @@ public class AnimalServiceImpl implements AnimalService {
         this.outboxService = outboxDao;
     }
 
+    @Override
+    @Transactional
+    public void delete(int id) {
+        this.animalDao.deleteById(id);
+    }
+
     @Transactional(rollbackFor = ServiceException.class)
     public void persist(Animal animal) throws ServiceException {
         try {
