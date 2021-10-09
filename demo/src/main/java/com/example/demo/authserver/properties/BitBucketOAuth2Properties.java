@@ -6,9 +6,8 @@ import org.springframework.context.annotation.Configuration;
 
 @Data
 @Configuration
-@ConfigurationProperties(prefix = "security.jwt")
-public class JwtProperties {
-    private String header;
+@ConfigurationProperties(prefix = "security.oauth2.bit-bucket-oauth2")
+public class BitBucketOAuth2Properties {
+    private String key;
     private String secret;
-    private long expirationSeconds;
 }

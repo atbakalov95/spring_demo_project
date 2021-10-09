@@ -6,9 +6,8 @@ import org.springframework.context.annotation.Configuration;
 
 @Data
 @Configuration
-@ConfigurationProperties(prefix = "security.jwt")
-public class JwtProperties {
-    private String header;
-    private String secret;
-    private long expirationSeconds;
+@ConfigurationProperties(prefix = "security.oauth2.local-server")
+public class LocalAuth2ServerProperties {
+    private String clientId;
+    private String clientSecret;
 }

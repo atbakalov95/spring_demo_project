@@ -17,12 +17,17 @@ public class BaseController {
         this.animalService = animalService;
     }
 
-    @RequestMapping(value = "/hello")
-    public String sayHello() {
-        return "Hello authorized user!";
+    @GetMapping
+    public String baseResponse(){return "Hello from base page! This page is available to anyone!";}
+
+    @RequestMapping(value = "/read")
+    @PreAuthorize("hasAuthority('READ_ANIMAL')")
+    public String tryRead() {
+        return "Hello authorized user! This page is available only for users with READ_ANIMAL access. For now it is user and any other oauth2 based user!";
     }
 
     @GetMapping(value = "/admin")
+    @PreAuthorize("hasAuthority('DELETE_ANIMAL')")
     public String sayHelloAdmin() { return "Hello to admin user!"; }
 
     @GetMapping(value = "/animal/{id}")
