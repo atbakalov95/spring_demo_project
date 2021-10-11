@@ -1,7 +1,7 @@
-package com.example.demo.authserver.filters;
+package com.example.demo.resourceserver.security.filters;
 
-import com.example.demo.authserver.exceptions.JwtAuthenticationException;
-import com.example.demo.authserver.jwt.JwtTokenProvider;
+import com.example.demo.resourceserver.exceptions.JwtAuthenticationException;
+import com.example.demo.resourceserver.security.jwt.JwtTokenProvider;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Component;

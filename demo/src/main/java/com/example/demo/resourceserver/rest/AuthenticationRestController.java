@@ -1,14 +1,12 @@
-package com.example.demo.authserver.rest;
+package com.example.demo.resourceserver.rest;
 
-import com.example.demo.authserver.jwt.JwtTokenProvider;
-import com.example.demo.authserver.model.AuthenticationRequestDto;
-import liquibase.pro.packaged.O;
+import com.example.demo.resourceserver.security.jwt.JwtTokenProvider;
+import com.example.demo.resourceserver.model.AuthenticationRequestDto;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.AuthenticationException;
-import org.springframework.security.core.userdetails.User;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.web.authentication.logout.SecurityContextLogoutHandler;

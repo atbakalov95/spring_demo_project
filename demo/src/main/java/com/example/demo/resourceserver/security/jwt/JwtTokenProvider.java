@@ -1,7 +1,7 @@
-package com.example.demo.authserver.jwt;
+package com.example.demo.resourceserver.security.jwt;
 
-import com.example.demo.authserver.exceptions.JwtAuthenticationException;
-import com.example.demo.authserver.properties.JwtProperties;
+import com.example.demo.resourceserver.exceptions.JwtAuthenticationException;
+import com.example.demo.resourceserver.properties.JwtProperties;
 import io.jsonwebtoken.*;
 import org.springframework.http.HttpStatus;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;

@@ -1,4 +1,4 @@
-package com.example.demo.authserver.model;
+package com.example.demo.resourceserver.model;
 
 import com.nimbusds.oauth2.sdk.util.CollectionUtils;
 import com.nimbusds.oauth2.sdk.util.MapUtils;

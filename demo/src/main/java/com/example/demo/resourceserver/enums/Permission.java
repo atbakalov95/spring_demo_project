@@ -1,4 +1,4 @@
-package com.example.demo.authserver.enums;
+package com.example.demo.resourceserver.enums;
 
 public enum Permission {
     CREATE_ANIMAL,

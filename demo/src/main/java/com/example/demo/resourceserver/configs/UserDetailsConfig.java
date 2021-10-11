@@ -1,7 +1,7 @@
-package com.example.demo.authserver.configs;
+package com.example.demo.resourceserver.configs;
 
-import com.example.demo.authserver.services.CustomOAuth2UserService;
-import com.example.demo.authserver.services.CustomUserService;
+import com.example.demo.resourceserver.security.services.CustomOAuth2UserService;
+import com.example.demo.resourceserver.security.services.CustomUserService;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Primary;

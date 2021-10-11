@@ -1,4 +1,4 @@
-package com.example.demo.authserver.services;
+package com.example.demo.resourceserver.security.services;
 
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.security.core.userdetails.jdbc.JdbcDaoImpl;

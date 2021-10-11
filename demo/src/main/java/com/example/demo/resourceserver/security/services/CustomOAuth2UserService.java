@@ -1,7 +1,7 @@
-package com.example.demo.authserver.services;
+package com.example.demo.resourceserver.security.services;
 
-import com.example.demo.authserver.enums.Permission;
-import com.example.demo.authserver.model.OAuth2UserImpl;
+import com.example.demo.resourceserver.enums.Permission;
+import com.example.demo.resourceserver.model.OAuth2UserImpl;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import lombok.SneakyThrows;
 import org.springframework.core.ParameterizedTypeReference;

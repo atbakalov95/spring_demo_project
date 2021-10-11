@@ -1,9 +1,8 @@
-package com.example.demo.authserver.configs;
+package com.example.demo.resourceserver.configs;
 
-import com.example.demo.authserver.JwtConfigurer;
-import com.example.demo.authserver.enums.Permission;
-import com.example.demo.authserver.properties.BitBucketOAuth2Properties;
-import com.example.demo.authserver.services.CustomOAuth2UserService;
+import com.example.demo.resourceserver.security.JwtConfigurer;
+import com.example.demo.resourceserver.enums.Permission;
+import com.example.demo.resourceserver.properties.BitBucketOAuth2Properties;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
