@@ -1,0 +1,12 @@
+server:
+  port: 9000
+
+user:
+  oauth:
+    clientName: customClient
+    clientId: R2dpxQ3vPrtfgF72
+    clientSecret: fDw7Mpkk5czHNuSRtmhGmAGL42CaxQB9
+    redirectUris: http://localhost:8080/login/oauth2/code/${user.oauth.clientName}
+    user:
+      username: user2
+      password: user2

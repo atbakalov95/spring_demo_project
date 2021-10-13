@@ -1,6 +1,5 @@
 redis-mq:
-#  cron: "*/1 * * * * *"
-  cron: "-"
+  cron: "*/1 * * * * *"
   scan-limit: 10
   queue:
     name: outbox-queue
@@ -11,12 +10,18 @@ security:
       key: FaXK35Mn75Z46FukAv
       secret: YFBqXsvN5495eLfzUV2zNwTgyfuW4SjM
     local-server:
-      client-id: "test_client_id"
-      client-secret: "{bcrypt}$2a$10$id3g8wTREQh67IQBXrm0D.ctcWw8ei34jtMqk/Qs5COzPDsG27kYq"
+      client-id: R2dpxQ3vPrtfgF72
+      client-secret: fDw7Mpkk5czHNuSRtmhGmAGL42CaxQB9
   jwt:
     header: AuthorizationJWT
     secret: secret-jwt-code-item-[ogijhrg[aqghr]ihgaeiuhrg2jht89[4
     expiration-seconds: 600 # 10 mins
+
+management:
+  endpoints:
+    web:
+      exposure:
+        include: mappings
 
 spring:
   redis:

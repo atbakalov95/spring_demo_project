@@ -1,5 +1,6 @@
 package com.example.demo.resourceserver.configs;
 
+import com.example.demo.resourceserver.properties.LocalAuth2ServerProperties;
 import com.example.demo.resourceserver.security.JwtConfigurer;
 import com.example.demo.resourceserver.enums.Permission;
 import com.example.demo.resourceserver.properties.BitBucketOAuth2Properties;
@@ -30,11 +31,13 @@ import java.util.List;
 public class SecurityConfig extends WebSecurityConfigurerAdapter {
     private final JwtConfigurer jwtConfigurer;
     private final BitBucketOAuth2Properties bitBucketOAuth2Properties;
+    private final LocalAuth2ServerProperties localAuth2ServerProperties;
     private final OAuth2UserService<OAuth2UserRequest, OAuth2User> oAuth2UserService;
 
-    public SecurityConfig(JwtConfigurer jwtConfigurer, BitBucketOAuth2Properties bitBucketOAuth2Properties, OAuth2UserService<OAuth2UserRequest, OAuth2User> oAuth2UserService) {
+    public SecurityConfig(JwtConfigurer jwtConfigurer, BitBucketOAuth2Properties bitBucketOAuth2Properties, LocalAuth2ServerProperties localAuth2ServerProperties, OAuth2UserService<OAuth2UserRequest, OAuth2User> oAuth2UserService) {
         this.jwtConfigurer = jwtConfigurer;
         this.bitBucketOAuth2Properties = bitBucketOAuth2Properties;
+        this.localAuth2ServerProperties = localAuth2ServerProperties;
         this.oAuth2UserService = oAuth2UserService;
     }
 
@@ -58,7 +61,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     }
 
     @Bean
-    public ClientRegistration clientRegistration() {
+    public ClientRegistration bitbucketClientRegistration() {
         return ClientRegistration
                 .withRegistrationId("bitbucket")
                 .clientId(bitBucketOAuth2Properties.getKey())
@@ -70,6 +73,24 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .tokenUri("https://bitbucket.org/site/oauth2/access_token")
                 .authorizationUri("https://bitbucket.org/site/oauth2/authorize")
                 .redirectUri("{baseUrl}/login/oauth2/code/{registrationId}")
+                .build();
+    }
+
+    @Bean
+    public ClientRegistration localoauth2ServerClientRegistration() {
+        return ClientRegistration
+                .withRegistrationId("customClient")
+                .clientId(localAuth2ServerProperties.getClientId())
+                .clientSecret(localAuth2ServerProperties.getClientSecret())
+                .clientName("Auth Sever")
+                .scope("user_info")
+                .clientAuthenticationMethod(ClientAuthenticationMethod.BASIC)
+                .authorizationGrantType(AuthorizationGrantType.AUTHORIZATION_CODE)
+                .tokenUri("http://my-oauth2-server:9000/oauth/token")
+                .authorizationUri("http://my-oauth2-server:9000/oauth/authorize")
+                .userInfoUri("http://my-oauth2-server:9000/userInfo")
+                .redirectUri("{baseUrl}/login/oauth2/code/{registrationId}")
+                .userNameAttributeName("name")
                 .build();
     }
 
