@@ -2,12 +2,11 @@ package com.example.demo.db;
 
 import com.example.demo.PayrollApplication;
 import com.example.demo.config.TestContainersConfig;
-import com.example.demo.resourceserver.exceptions.ServiceException;
-import com.example.demo.resourceserver.model.Bird;
-import com.example.demo.resourceserver.services.AnimalService;
-import com.example.demo.resourceserver.services.OutboxService;
+import com.example.demo.defaultapp.exceptions.ServiceException;
+import com.example.demo.defaultapp.model.Bird;
+import com.example.demo.defaultapp.services.AnimalService;
+import com.example.demo.defaultapp.services.OutboxService;
 import org.junit.Assert;
-import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.Mockito;
