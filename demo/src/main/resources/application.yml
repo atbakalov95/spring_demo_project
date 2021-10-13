@@ -1,0 +1,43 @@
+redis-mq:
+  cron: "*/1 * * * * *"
+  scan-limit: 10
+  queue:
+    name: outbox-queue
+
+security:
+  oauth2:
+    bit-bucket-oauth2:
+      key: FaXK35Mn75Z46FukAv
+      secret: YFBqXsvN5495eLfzUV2zNwTgyfuW4SjM
+    local-server:
+      client-id: R2dpxQ3vPrtfgF72
+      client-secret: fDw7Mpkk5czHNuSRtmhGmAGL42CaxQB9
+  jwt:
+    header: AuthorizationJWT
+    secret: secret-jwt-code-item-[ogijhrg[aqghr]ihgaeiuhrg2jht89[4
+    expiration-seconds: 600 # 10 mins
+
+management:
+  endpoints:
+    web:
+      exposure:
+        include: mappings
+
+spring:
+  redis:
+    host: "localhost"
+    port: 9999
+  datasource:
+    driverClassName: org.postgresql.Driver
+    url: jdbc:postgresql://localhost:5432/test_db?reWriteBatchedInserts=true
+    username: postgres
+    password: 1234
+  jpa:
+    properties:
+      hibernate:
+        order_inserts: true
+        jdbc:
+          batch_size: 100
+    hibernate:
+      ddl-auto: none
+    show-sql: false

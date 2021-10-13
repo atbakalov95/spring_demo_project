@@ -1,0 +1,77 @@
+databaseChangeLog:
+  - logicalFilePath: db/changelog/database-updates/migration-1-initial-changelog.yaml
+  - changeSet:
+      id: 11
+      author: liquibase_user
+      changes:
+        - createTable:
+            tableName: zoo
+            columns:
+              - column:
+                  name: id
+                  type: BIGINT
+                  autoIncrement: true
+                  constraints:
+                    nullable: false
+                    primaryKey: true
+              - column:
+                  name: name
+                  type: varchar(255)
+        - createTable:
+            tableName: outbox
+            columns:
+              - column:
+                  name: id
+                  type: UUID
+                  constraints:
+                    primaryKey: true
+                    nullable: false
+              - column:
+                  name: message
+                  type: TEXT
+              - column:
+                  name: status
+                  type: varchar(50)
+  - changeSet:
+      id: 12
+      author: liquibase_user
+      comment: "Creating animal in a separate migration script because of modifySql"
+      changes:
+        - createTable:
+            tableName: animal
+            columns:
+              - column:
+                  name: id
+                  type: BIGINT
+                  autoIncrement: true
+                  constraints:
+                    primaryKey: true
+                    nullable: false
+              - column:
+                  name: dtype
+                  type: varchar(31)
+                  constraints:
+                    primaryKey: true # obligatory for new postgres partitioning
+                    nullable: false
+              - column:
+                  name: name
+                  type: varchar(255)
+              - column:
+                  name: owner
+                  type: varchar(255)
+              - column:
+                  name: fly_height
+                  type: integer
+              - column:
+                  name: fur_type
+                  type: varchar(255)
+              - column:
+                  name: zoo_id
+                  type: BIGINT
+                  constraints:
+                    foreignKeyName: fk_animal_zoo
+                    references: zoo(id)
+        - modifySql:
+            dbms: postgresql
+            append:
+              value: PARTITION BY LIST(dtype)

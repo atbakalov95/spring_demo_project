@@ -1,0 +1,6 @@
+databaseChangeLog:
+  - logicalFilePath: db/changelog/db.changelog-master.yaml
+  - includeAll:
+      relativeToChangelogFile: true
+      path: /database-updates
+      errorIfMissingorEmpty: true

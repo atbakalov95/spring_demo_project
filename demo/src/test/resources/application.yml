@@ -1,0 +1,30 @@
+redis-mq:
+  cron: "-"
+  queue:
+    name: outbox-queue
+
+logging:
+  level:
+    org:
+      springframework:
+        jdbc:
+          core:
+            JdbcTemplate: DEBUG
+
+spring:
+  datasource:
+    driverClassName: org.testcontainers.jdbc.ContainerDatabaseDriver
+    url: jdbc:tc:postgresql:13:///test_db
+    username: sa
+    password: sa
+  jpa:
+    properties:
+      hibernate:
+        order_inserts: true
+#        format_sql: true
+#        generate_statistics: true
+        jdbc:
+          batch_size: 100
+    hibernate:
+      ddl-auto: none
+#    show_sql: true
