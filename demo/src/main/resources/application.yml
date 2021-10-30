@@ -1,4 +1,5 @@
 redis-mq:
+#  cron: "-"
   cron: "*/1 * * * * *"
   scan-limit: 10
   queue:
