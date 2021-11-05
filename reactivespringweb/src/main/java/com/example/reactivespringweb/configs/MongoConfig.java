@@ -1,31 +1,25 @@
 //package com.example.reactivespringweb.configs;
 //
-//import com.mongodb.ConnectionString;
-//import com.mongodb.MongoClientSettings;
-//import com.mongodb.reactivestreams.client.MongoClient;
-//import com.mongodb.reactivestreams.client.MongoClients;
 //import org.springframework.context.annotation.Bean;
-//import org.springframework.data.mongodb.config.AbstractReactiveMongoConfiguration;
-//import org.springframework.data.mongodb.repository.config.EnableReactiveMongoRepositories;
+//import org.springframework.context.annotation.Configuration;
+//import org.springframework.data.mongodb.ReactiveMongoDatabaseFactory;
+//import org.springframework.data.mongodb.ReactiveMongoTransactionManager;
+//import org.springframework.transaction.ReactiveTransactionManager;
+//import org.springframework.transaction.reactive.TransactionalOperator;
 //
 //import java.util.logging.Logger;
 //
-//@EnableReactiveMongoRepositories
-//public class MongoConfig extends AbstractReactiveMongoConfiguration {
+//@Configuration
+//public class MongoConfig {
 //    private final static Logger logger = Logger.getLogger(MongoConfig.class.getName());
 //
 //    @Bean
-//    public MongoClient mongoClient() {
-//        String mongoConnectionString = "mongodb://localhost:8088";
-//        ConnectionString connectionString = new ConnectionString(mongoConnectionString);
-//        logger.info("Connection string:"+connectionString);
-//        logger.info("Credentials:"+connectionString.getCredential());
-//
-//        return MongoClients.create(connectionString);
+//    public ReactiveMongoTransactionManager transactionManager(ReactiveMongoDatabaseFactory rdbf) {
+//        return new ReactiveMongoTransactionManager(rdbf);
 //    }
 //
-//    @Override
-//    protected String getDatabaseName() {
-//        return "users";
+//    @Bean
+//    public TransactionalOperator transactionalOperator(ReactiveTransactionManager rtm) {
+//        return TransactionalOperator.create(rtm);
 //    }
 //}
