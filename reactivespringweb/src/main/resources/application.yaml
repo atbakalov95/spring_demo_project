@@ -1,3 +1,12 @@
+rabbit-mq:
+  host: localhost
+  port: 5672
+  queue-name: "test-queue-name"
+  exchange-name: "test-exchange-name"
+  subscribers:
+    subscriber1: "subscriber1"
+    subscriber2: "subscriber2"
+
 spring:
   data:
     mongodb:

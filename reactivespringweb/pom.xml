@@ -31,10 +31,17 @@
 		</dependency>
 
 		<dependency>
+			<groupId>org.springframework.amqp</groupId>
+			<artifactId>spring-rabbit</artifactId>
+		</dependency>
+
+
+		<dependency>
 			<groupId>org.projectlombok</groupId>
 			<artifactId>lombok</artifactId>
 		</dependency>
 
+		<!--#region Testing-->
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-test</artifactId>
@@ -50,11 +57,7 @@
             <artifactId>junit</artifactId>
             <scope>test</scope>
         </dependency>
-        <!--		<dependency>-->
-<!--			<groupId>de.flapdoodle.embed</groupId>-->
-<!--			<artifactId>de.flapdoodle.embed.mongo</artifactId>-->
-<!--			<scope>test</scope>-->
-<!--		</dependency>-->
+        <!--#endregion-->
 	</dependencies>
 
 	<build>
