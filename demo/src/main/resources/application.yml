@@ -8,14 +8,14 @@ redis-mq:
 security:
   oauth2:
     bit-bucket-oauth2:
-      key: FaXK35Mn75Z46FukAv
-      secret: YFBqXsvN5495eLfzUV2zNwTgyfuW4SjM
+      key: ${OPENID_BIT_BUCKET_OAUTH2_KEY}
+      secret: ${OPENID_BIT_BUCKET_OAUTH2_SECRET}
     local-server:
-      client-id: R2dpxQ3vPrtfgF72
-      client-secret: fDw7Mpkk5czHNuSRtmhGmAGL42CaxQB9
+      client-id: ${OPENID_SERVER_CUSTOM_CLIENT_ID}
+      client-secret: ${OPENID_SERVER_CUSTOM_CLIENT_SECRET}
   jwt:
     header: AuthorizationJWT
-    secret: secret-jwt-code-item-[ogijhrg[aqghr]ihgaeiuhrg2jht89[4
+    secret: ${JWT_SPRING_APPLICATION_CUSTOM_SECRET}
     expiration-seconds: 600 # 10 mins
 
 management:

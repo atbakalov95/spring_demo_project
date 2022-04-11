@@ -4,8 +4,8 @@ server:
 user:
   oauth:
     clientName: customClient
-    clientId: R2dpxQ3vPrtfgF72
-    clientSecret: fDw7Mpkk5czHNuSRtmhGmAGL42CaxQB9
+    clientId: ${OPENID_SERVER_CUSTOM_CLIENT_ID}
+    clientSecret: ${OPENID_SERVER_CUSTOM_CLIENT_SECRET}
     redirectUris: http://localhost:8080/login/oauth2/code/${user.oauth.clientName}
     user:
       username: user2
